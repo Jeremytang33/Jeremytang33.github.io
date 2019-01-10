@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+	<head>
+	<h1><font color = "red">SUPREME</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+ <div class="navbar">
+  <a href="home page.html">Home</a>
+  <a href="news.html">News</a>
+	 <a href= "DEMO.html">DEMO</a>
+  
+  <div class="dropdown">
+    <button class="dropbtn">More 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div> 
+</div>
+
+<body>
+<div id="Accordion1">
+
+    
+  </div>
+	<p1>Personalise your own Tshirt</p1>
+	
+	
+<p2>T-shirt color</p2>
+    <br>
+<canvas id="toolsCanvas" width="300" height="53"></canvas>
+    <br>
+<p>
+  <canvas id="drawingCanvas" width="520" height="0"></canvas>
+  <canvas id="itemCanvas" width="520" height="429"></canvas>
+	</p>
+    <script type="text/javascript">
+$(function() {
+	$( "#Accordion1" ).accordion(); 
+});
+    </script>
+
+
+	
+</body>
+</html>
+
+
+
+
+<style>
+	p1{
+		float:right;
+		font-size: 70px;
+		color: white;
+			
+		
+	}
+	.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
+}
+
+
+.navbar a {
+  float: right;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+
+.dropdown .dropbtn {
+  font-size: 16px; 
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; 
+  margin: 0; 
+}
+
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+body{
+  background-color : #000000;
+}
+
+h1{
+  font-size : 150px;
+  margin-bottom:0px;
+  margin-top:0px;
+   text-shadow: 2px 2px #FFFFFF;
+}
+
+}
+* {box-sizing:border-box}
+canvas {
+    border:1px solid #1f1f1f;
+}
+#drawingCanvas {
+    display:none;
+}</style>
+
+<script src="jQueryAssets/jquery-1.11.1.min.js"></script>
+<script src="jQueryAssets/jquery.ui-1.10.4.accordion.min.js"></script>
+<script>
+	$(document).ready(function () {
+    function setColor(ctx) {
+        ctx.fillStyle = init.color;
+        ctx.fill();
+    }
+    
+    var canvas = document.getElementById("drawingCanvas");
+    var context = canvas.getContext("2d");
+    var tools = document.getElementById("toolsCanvas");
+    var ctx = tools.getContext("2d");
+    var canvasOffset = $("#toolsCanvas").offset();
+    var offsetX = canvasOffset.left;
+    var offsetY = canvasOffset.top;
+    var colors = ['Green', 'RED', 'Yellow', 'Orange', 'Brown', 'Purple','BLUE','PINK','GOLD','SILVER','AQUA']
+    var lightcolors = "Yellow|White";
+    var colorPickerWidth = 25;
+    
+    tools.width = colors.length * colorPickerWidth;
+    for (var i = 0; i < colors.length; i++) {
+        ctx.fillStyle = colors[i];
+        ctx.fillRect(i * colorPickerWidth, 0, colorPickerWidth, 25);
+    }
+
+    
+
+    function handleMouseDown(e) {
+        console.log("down");
+        var x = parseInt(e.clientX - offsetX);
+        var color = colors[parseInt(x / colorPickerWidth)];
+        ctx.save();
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 28, tools.width, 25);
+        ctx.fillStyle = "white";
+        if (lightcolors.indexOf(color) > -1) {
+            ctx.fillStyle = "black";
+        }
+        ctx.font = "16px verdana";
+        ctx.fillText("Selected: " + color, 10, 45);
+        ctx.restore();
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = color;
+        context.font = "14px arial";
+        init(color);
+        
+    }
+
+    $("#toolsCanvas").mousedown(function (e) {
+        handleMouseDown(e);
+    });
+
+    
+
+    function init(color) {
+        init.color = color ? color : colors[0];
+        var canvas = document.getElementById("itemCanvas");
+        var ctx = canvas.getContext("2d");
+        draw(ctx);
+    }
+
+    function draw(ctx) {
+        ctx.save();
+        ctx.beginPath();
+
+        setColor(ctx);
+        ctx.closePath();
+        ctx.moveTo(406.9, 165.5);
+        ctx.lineTo(404.8, 428.4);
+     
+        setColor(ctx);
+   
+        ctx.lineTo(397.2, 428.4);
+       ctx.lineTo(114.3, 428.4); 
+        ctx.lineTo(112.1, 165.5);
+        ctx.lineTo(26.4, 162.6);
+         ctx.lineTo(5, 50);
+      ctx.lineTo(200, 1);
+        ctx.bezierCurveTo(239.4, 17.7, 279.7, 17.7, 320.4, 1);
+       ctx.lineTo(510, 50); 
+       ctx.lineTo(489.7, 162.7);
+      
+        setColor(ctx);
+        ctx.closePath();
+
+        ctx.font = "50px 'Verdana'";
+        ctx.fillStyle = "rgb(0, 0, 0)";
+
+        ctx.fillText("SUPREME", 138, 170);
+
+        ctx.restore();
+    }
+    init();
+});
+</script>
